@@ -320,4 +320,20 @@ let uniqueAirlineData = [
   ...new Map(allData.map((item) => [item["career"], item])).values(),
 ];
 
-console.log("uniqueAirlineData", uniqueAirlineData);
+// console.log("uniqueAirlineData", uniqueAirlineData);
+
+let counts = sortedData.reduce((acc, curr) => {
+  const str = JSON.stringify(curr.career);
+  acc[str] = (acc[str] || 0) + 1;
+  return acc;
+}, {});
+// console.log('counts', counts);
+
+uniqueAirlineData.map((item, index) => {
+  for (let count in counts) {
+    if (item.career === JSON.parse(count)) {
+      item["count"] = counts[count];
+    }
+  }
+});
+// console.log('uniqueAirlineData', uniqueAirlineData);
